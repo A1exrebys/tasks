@@ -1,7 +1,8 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
-using namespase std;
+using namespace std;
 
 #define HASH_SIZE	100000
 
