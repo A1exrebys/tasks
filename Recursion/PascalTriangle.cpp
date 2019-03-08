@@ -5,63 +5,73 @@ using namespace std;
 
 class Solution {
 public:
-	vector<vector<int>> generate(int numRows) {
-		vector<vector<int>> ret(numRows);
+	double powMe(double x, long long int n) {
+		if (n == 0)
+			return 1.0;
 
-		generate1(ret, 0, numRows);
+		double num = powMe(x, n / 2);
 
-		return ret;
+		if (n % 2 == 0)
+			return num * num;
+		else
+			return num * num * x;
 	}
 
-	void generate1( vector<vector<int>>& v, int i, int numRows) {
-		if (i == numRows)
-			return;
+	double myPow(double x, int n) {
+		long long int pow = n;
 
-		if (i == 0) {
-			v[i].push_back({1});
-		} else if (i == 1) {
-			v[i].push_back(1);
-			v[i].push_back(1);
-		} else {
-			v[i].push_back(1);
-
-			for (int k = 1; k <= i - 1; k++)
-				v[i].push_back(v[i - 1][k - 1] + v[i - 1][k]);
-
-			v[i].push_back(1);
+		if (pow < 0) {
+			x = 1/x;
+			pow = -pow;
 		}
 
-		generate1(v, i + 1, numRows);
+		return powMe(x ,pow);
 	}
 };
-
 
 #if 0
 class Solution {
 public:
-	vector<vector<int>> generate(int numRows) {
-		vector<vector<int>> ret(numRows);
-		int i = 0;
+	double myPow(double x, int n) {
+		long long int pow = n;
 
-		while (i != numRows) {
-			if (i == 0) {
-				ret[i]. push_back(1);
-			} else if (i == 1) {
-				ret[i].push_back(1);
-				ret[i].push_back(1);
-			} else {
-				ret[i].push_back(1);
-
-			for (int k = 1; k <= i - 1; k++)
-				ret[i].push_back(ret[i - 1][k - 1] + ret[i - 1][k]);
-
-				ret[i].push_back(1);
-			}
-
-			i++;
+		if (pow < 0) {
+			x = 1/x;
+			pow = -pow;
 		}
 
-		return ret;
+		double res = 1.0;
+		double current = x;
+
+		for (long long int i = pow; i > 0; i /= 2) {
+			if ((i % 2) == 1)
+				res = res * current;
+
+			current = current * current;
+		}
+
+		return res;
+	}
+};
+#endif
+
+#if 0
+class Solution {
+public:
+	double myPow(double x, int n) {
+		long long int pow = n;
+
+		if (pow < 0) {
+			x = 1/x;
+			pow = -pow;
+		}
+
+		double res = 1.0;
+
+		for (int i = 0; i < pow; i++)
+			res = res * x;
+
+		return res;
 	}
 };
 #endif
